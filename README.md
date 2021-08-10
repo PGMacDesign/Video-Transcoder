@@ -12,6 +12,12 @@ This project is a fork of https://github.com/brarcher/video-transcoder. When I o
 
 This project was fairly old at this point and did not support AndroidX nor higher versions of Android so I changed it to incorporate a few modern updates.
 
+## ToDo Items
+
+Because of the changes outlined here, https://stackoverflow.com/questions/60370424/permission-is-denied-using-android-q-ffmpeg-error-13-permission-denied, I will need to update from FFmpeg.
+
+Ideally, this means I will need to incorporate and change over to this repo: https://github.com/tanersener/ffmpeg-kit 
+
 ## Back to the Original Author's Readme:
 
 Do you want to encode videos on your phone into different formats, trim videos, or extract audio? Are you looking for a free solution which will not take your information?
