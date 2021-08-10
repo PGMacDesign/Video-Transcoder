@@ -1,27 +1,22 @@
 apply plugin: 'com.android.application'
-apply plugin: 'findbugs'
-
-findbugs {
-    sourceSets = []
-    ignoreFailures = false
-}
 
 android {
-    compileSdkVersion 27
+	compileSdkVersion 28
     defaultConfig {
         applicationId "protect.videoeditor"
         minSdkVersion 19
-        targetSdkVersion 27
+	    //Note, if you raise this to a higher version, it crashes because of Android API 29 changes
+        targetSdkVersion 28
         versionCode 15
         versionName "0.14"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,8 +42,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'protect:android-ffmpeg:release@aar'
     implementation 'com.crystal:crystalrangeseekbar:1.1.3'
     implementation 'commons-io:commons-io:2.6'
@@ -57,10 +52,8 @@ dependencies {
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
     implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-
-    implementation 'ch.acra:acra:4.11'
-
-    testImplementation 'junit:junit:4.12'
+	
+	testImplementation 'junit:junit:4.12'
     testImplementation "org.robolectric:robolectric:3.8"
     testImplementation "org.mockito:mockito-core:2.8.9"
     testImplementation 'org.powermock:powermock-api-mockito2:1.7.4'
@@ -68,21 +61,3 @@ dependencies {
     testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
 }
 
-task findbugs(type: FindBugs, dependsOn: 'assembleDebug') {
-
-    description 'Run findbugs'
-    group 'verification'
-
-    classes = fileTree('build/intermediates/javac/debug/compileDebugJavaWithJavac/classes')
-    source = fileTree('src/main/java')
-    classpath = files()
-
-    effort = 'max'
-
-    excludeFilter = file("./config/findbugs/exclude.xml")
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}

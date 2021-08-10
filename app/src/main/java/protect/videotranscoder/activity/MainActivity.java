@@ -20,11 +20,11 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
-import android.support.annotation.IdRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.IdRes;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -583,6 +583,12 @@ public class MainActivity extends AppCompatActivity
      */
     private void selectVideo()
     {
+	    if(true){
+		    // TODO: 8/10/21 temp adding this for experimenting
+//		    File myFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "myFile.mov");
+//		    setSelectMediaFile(myFile.getAbsolutePath(), null);
+//		    return;
+	    }
         Intent i = new Intent(this, FastScrollerFilePickerActivity.class);
 
         i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
@@ -976,8 +982,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-
-        if(isEncoding() == false && videoInfo != null)
+        if(!isEncoding() && videoInfo != null)
         {
             startVideoPlayback(null);
         }
@@ -1592,7 +1597,7 @@ public class MainActivity extends AppCompatActivity
             if(result)
             {
                 final Uri outputUri = FileProvider.getUriForFile(mainActivity, BuildConfig.APPLICATION_ID, new File(outputFile));
-
+	
                 final CharSequence sendLabel = mainActivity.getResources().getText(R.string.sendLabel);
                 builder.setNeutralButton(sendLabel, new DialogInterface.OnClickListener()
                 {
@@ -1602,7 +1607,7 @@ public class MainActivity extends AppCompatActivity
                         Intent sendIntent = new Intent(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_STREAM, outputUri);
                         sendIntent.setType(mimetype);
-
+	
                         // set flag to give temporary permission to external app to use the FileProvider
                         sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 

@@ -32,12 +32,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.app.NavUtils;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,11 +46,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.acra.ReportField;
-import org.acra.collector.CrashReportData;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -141,26 +136,6 @@ public class ErrorActivity extends AppCompatActivity
                                    final View rootView, final ErrorInfo errorInfo)
     {
         handler.post(() -> reportError(context, el, rootView, errorInfo));
-    }
-
-    public static void reportError(final Context context, final CrashReportData report, final ErrorInfo errorInfo)
-    {
-        // get key first (don't ask about this solution)
-        ReportField key = null;
-        for (ReportField k : report.keySet())
-        {
-            if (k.toString().equals("STACK_TRACE"))
-            {
-                key = k;
-            }
-        }
-        String[] el = new String[]{report.get(key).toString()};
-
-        Intent intent = new Intent(context, ErrorActivity.class);
-        intent.putExtra(ERROR_INFO, errorInfo);
-        intent.putExtra(ERROR_LIST, el);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 
     private static String getStackTrace(final Throwable throwable)
