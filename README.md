@@ -8,7 +8,7 @@
 
 # Fork -->
 
-This project if a fork of https://github.com/brarcher/video-transcoder. When I originally forked said project, github was having issues and throwing 500 errors, so I just cloned it and changed it on my end.1
+This project is a fork of https://github.com/brarcher/video-transcoder. When I originally forked said project, github was having issues and throwing 500 errors, so I just cloned it and changed it on my end.
 
 This project was fairly old at this point and did not support AndroidX nor higher versions of Android so I changed it to incorporate a few modern updates.
 
